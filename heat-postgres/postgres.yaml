@@ -29,6 +29,18 @@ parameters:
     type: string
     description: Private subnet into which servers get deployed
     default: private_subnet
+  pgsql_user:
+    type: string
+    description: Username to use for the PostgreSQL database
+    default: pguser
+  pgsql_pass:
+    type: string
+    description: Password to use for the PostgreSQL database
+    default: pgpass
+  pgsql_db:
+    type: string
+    description: Database to use for the PostgreSQL server
+    default: pgdatabase
 
 resources:
   postgres_srv:
@@ -87,6 +99,7 @@ resources:
         postgresql-setup initdb
         systemctl enable postgresql
         systemctl start postgresql
+        #TODO - configure postgresql database
 
 outputs:
   instance_ip:
