@@ -1,15 +1,3 @@
-- name: superapp-openshift
-  hosts: openshift
-
-  tasks:
-  - name: create an openshift application
-    script: deploy-java
-    become: yes
-    register: resultopenshift
-
-  - name: debug
-    debug: "output {{ resultopenshift.stdout }}"
- 
 - name: superapp-openstack
   hosts: openstack
 
@@ -22,3 +10,14 @@
     debug: "output {{ resultopenstack.stdout }}"
 
 
+- name: superapp-openshift
+  hosts: openshift
+
+  tasks:
+  - name: create an openshift application
+    script: deploy-java
+    become: yes
+    register: resultopenshift
+
+  - name: debug
+    debug: "output {{ resultopenshift.stdout }}"
