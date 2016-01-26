@@ -104,5 +104,5 @@ resources:
 outputs:
   instance_ip:
     description: Public IP address of the newly created Nova instance.
-    value: { get_attr: [postgres_srv, first_address] }
+    value: { get_attr: [ postgres_floating_ip, floating_ip_address ] }
 
