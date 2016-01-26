@@ -99,6 +99,8 @@ resources:
             yum install postgresql postgresql-server -y
             #firewall-cmd --add-port=5432/tcp
             postgresql-setup initdb
+            echo -e "host all all 0.0.0.0/0 trust" >> /var/lib/pgsql/data/pg_hba.conf
+            echo -e "listen_addresses='*'" >> /var/lib/pgsql/data/postgresql.conf
             systemctl enable postgresql
             systemctl start postgresql
             sed -i /^Default.*requiretty$/d /etc/sudoers
