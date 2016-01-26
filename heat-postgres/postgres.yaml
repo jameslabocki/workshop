@@ -90,16 +90,25 @@ resources:
     type: OS::Heat::SoftwareConfig
     properties:
       group: ungrouped
-      config: |
-        #!/usr/bin/env bash
-        rpm -Uvh http://sat6.e2e.bos.redhat.com/pub/katello-ca-consumer-latest.noarch.rpm
-        subscription-manager register --org="e2e" --activationkey="e2e-base-key"
-        yum install postgresql postgresql-server -y
-        #firewall-cmd --add-port=5432/tcp
-        postgresql-setup initdb
-        systemctl enable postgresql
-        systemctl start postgresql
-        #TODO - configure postgresql database
+      config:
+        str_replace:
+          template: |
+            #!/usr/bin/env bash
+            rpm -Uvh http://sat6.e2e.bos.redhat.com/pub/katello-ca-consumer-latest.noarch.rpm
+            subscription-manager register --org="e2e" --activationkey="e2e-base-key"
+            yum install postgresql postgresql-server -y
+            #firewall-cmd --add-port=5432/tcp
+            postgresql-setup initdb
+            systemctl enable postgresql
+            systemctl start postgresql
+            sed -i /^Default.*requiretty$/d /etc/sudoers
+            sudo -u postgres psql -c "CREATE USER $pgsql_user WITH PASSWORD '$pgsql_pass';"
+            sudo -u postgres psql -c "CREATE DATABASE $pgsql_db;"
+            sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $pgsql_db to $pgsql_user;"
+          params:
+            $pgsql_user: {get_param: pgsql_user}
+            $pgsql_pass: {get_param: pgsql_pass}
+            $pgsql_db: {get_param: pgsql_db}
 
 outputs:
   instance_ip:
