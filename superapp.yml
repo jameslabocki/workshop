@@ -7,7 +7,7 @@
     register: resultopenstack
 
   - name: debug
-    debug: "output {{ resultopenstack.stdout }}"
+    debug: var=resultopenstack.stdout
 
 
 - name: superapp-openshift
