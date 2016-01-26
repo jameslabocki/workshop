@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 
-/bin/oc --insecure-skip-tls-verify=true login https://master-0.jan2016trial.syseng.us:8443 -u admin -p 100Root-
+#/bin/oc --insecure-skip-tls-verify=true login https://master-0.jan2016trial.syseng.us:8443 -u admin -p 100Root-
 
+#/bin/oc delete namespace test
+#/bin/oc new-project test
+#/bin/oc process -f  /root/rails-ex-external/openshift/templates/rails-postgresql.json -v  DATABASE_SERVICE_PORT=5432,DATABASE_SERVICE_HOST=192.168.1.245 | oc  create -f -
