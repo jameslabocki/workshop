@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-wget https://raw.githubusercontent.com/rdoxenham/workshop/master/heat-postgres/postgres.yaml -O	/tmp/postgres.yaml
+wget https://raw.githubusercontent.com/rdoxenham/workshop/master/heat-postgres/postgres.yaml -O	/tmp/postgres.yaml > /dev/null 2>&1
 heat --os-username rdo --os-password redhat \
         --os-tenant-name workshop --os-auth-url http://localhost:5000/v2.0 \
-        stack-create -P instance_type=${1} -f /tmp/postgres.yaml pg_deploy
+        stack-create -P "instance_type=${1};pgsql_user=${2};pgsql_pass=${3};pgsql_db=${4}" -f /tmp/postgres.yaml pg_deploy > /dev/null 2>&1
 
 
