@@ -1,21 +1,24 @@
+- name: superapp-openshift
+  hosts: openshift
+
   tasks:
   - name: create an openshift application
-    hosts: openshift
     script: deploy-java
     become: yes
     register: resultopenshift
 
   - name: debug
-    hosts: openshift
     debug: "output {{ resultopenshift.stdout }}"
  
+- name: superapp-openstack
+  hosts: openstack
+
+  tasks: 
   - name: create a postgres deployment
-    hosts: openstack
-    script: deploy-postgres {{ flavor }} {{ pgsql_user }} {{ pgsql_pass }} {{ pgsql_schema }}
+    script: deploy-postgres {{ flavor }} {{ pgsql_user }} {{ pgsql_pass }} {{ pgsql_db }}
     register: resultopenstack
 
   - name: debug
-    hosts: openstack
     debug: "output {{ resultopenstack.stdout }}"
 
 
