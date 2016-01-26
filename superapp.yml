@@ -1,0 +1,20 @@
+- name: openshiftcreate
+  hosts: openshift
+  
+  tasks:
+  - name: create an openshift application
+    script: deploy-java
+    become: yes
+    register: result
+
+  - name: debug
+    debug: "output {{ result.stdout }}"
+ 
+- name: openstackcreate
+  hosts: openstack
+
+  tasks:
+  - name: create a postgres deployment
+    script: deploy-postgres {{ flavor }}
+    register: result
+
