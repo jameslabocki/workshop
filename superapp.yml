@@ -3,7 +3,7 @@
 
   tasks: 
   - name: create a postgres deployment
-    script: deploy-postgres {{ flavor }} {{ pgsql_user }} {{ pgsql_pass }} {{ pgsql_db }}
+    script: heat-postgres/deploy.sh {{ flavor }} {{ pgsql_user }} {{ pgsql_pass }} {{ pgsql_db }}
     register: resultopenstack
 
   - name: debug
