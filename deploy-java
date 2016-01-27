@@ -12,3 +12,4 @@ export KUBECONFIG=/etc/origin/master/admin.kubeconfig
 sleep 15
 /bin/oc new-project test
 oc process -f /root/rails-ex-external/openshift/templates/rails-postgresql.json -v DATABASE_SERVICE_PORT=5432,DATABASE_SERVICE_HOST=${DB_IP_ADDRESS},DATABASE_USER=${DB_USERNAME},DATABASE_PASSWORD=${DB_PASSWORD},DATABASE_NAME=${DB_NAME} | sed -e 's/"port": "5432"/"port": 5432/g' | oc create -f -
+oc policy add-role-to-user admin admin -n test
