@@ -28,4 +28,4 @@ while [ $? -ne 0 ]; do
 done
 
 # We should now have the Heat stack created, return the floating IP to Ansible
-heat --os-username rdo --os-password redhat --os-tenant-name workshop output-show $UUID --all | grep output_value | awk 'BEGIN { FS = ":" } ; { print $2 }' | sed -e s/\"//g -e s/\,//g -e "s/ //g" | tr -d '\r\n'
+heat --os-username rdo --os-password redhat --os-tenant-name workshop --os-auth-url http://localhost:5000/v2.0 output-show $UUID --all | grep output_value | awk 'BEGIN { FS = ":" } ; { print $2 }' | sed -e s/\"//g -e s/\,//g -e "s/ //g" | tr -d '\r\n'
