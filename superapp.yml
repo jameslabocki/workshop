@@ -9,15 +9,14 @@
   - name: debug
     debug: var=resultopenstack.stdout
 
-
 - name: superapp-openshift
   hosts: openshift
 
   tasks:
   - name: create an openshift application
-    script: deploy-java
+    script: deploy-java {{ hostvars[groups['openstack'][0]]['resultopenstack'].stdout }} {{ pgsql_user }} {{ pgsql_pass }} {{ pgsql_db }}
     become: yes
     register: resultopenshift
 
   - name: debug
-    debug: "output {{ resultopenshift.stdout }}"
+    debug: var1=resultopenshift.stdout
