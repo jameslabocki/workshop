@@ -8,6 +8,7 @@ DB_NAME=$4
 #/bin/oc --insecure-skip-tls-verify=true login https://master-0.jan2016trial.syseng.us:8443 -u admin -p 100Root-
 
 export KUBECONFIG=/etc/origin/master/admin.kubeconfig
-#/bin/oc delete namespace test
+/bin/oc delete namespace test
+sleep 5
 /bin/oc new-project test
 oc process -f /root/rails-ex-external/openshift/templates/rails-postgresql.json -v DATABASE_SERVICE_PORT=5432,DATABASE_SERVICE_HOST=${DB_IP_ADDRESS},DATABASE_USER=${DB_USERNAME},DATABASE_PASSWORD=${DB_PASSWORD},DATABASE_NAME=${DB_NAME} | sed -e 's/"port": "5432"/"port": 5432/g' | oc create -f -
